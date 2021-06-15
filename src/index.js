@@ -1,7 +1,11 @@
-import { showMessage } from "./messager";
+import "phaser";
 
-const messageEl = document.createElement("div");
-messageEl.textContent = "I was put here by JavaScript! Hola";
-document.body.appendChild(messageEl);
+import { SimpleScene } from "./scenes/simple-scene";
 
-showMessage("Somebody else did this work!");
+const gameConfig = {
+  width: 680,
+  height: 400,
+  scene: SimpleScene,
+};
+
+new Phaser.Game(gameConfig);
