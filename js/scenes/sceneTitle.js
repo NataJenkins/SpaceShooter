@@ -25,6 +25,7 @@ class SceneTitle extends Phaser.Scene {
     this.alignGrid.placeAtIndex(60, btnStart);
 
     emitter.on("start_game", this.startGame, this);
+    this.scene.start("SceneMain");
   }
   startGame() {
     this.scene.start("SceneMain");
