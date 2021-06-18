@@ -36,8 +36,10 @@ class SceneMain extends Phaser.Scene {
     this.background.on("pointerdown", this.backgroundClicked, this);
   }
   backgroundClicked() {
-    var tx = this.background.input.localX;
-    var ty = this.background.input.localY;
+    var tx = this.background.input.localX * this.background.scaleX;
+    var ty = this.background.input.localY * this.background.scaleY;
+    this.tx = tx;
+    this.ty = ty;
     var angle = this.physics.moveTo(this.ship, tx, ty, 60);
 
     angle = this.toDegrees(angle);
@@ -46,5 +48,12 @@ class SceneMain extends Phaser.Scene {
   toDegrees(angle) {
     return angle * (180 / Math.PI);
   }
-  update() {}
+  update() {
+    var distX = Math.abs(this.ship.x - this.tx);
+    var distY = Math.abs(this.ship.y - this.ty);
+
+    if (distX < 10 && distY < 10) {
+      this.ship.body.setVelocity(0, 0);
+    }
+  }
 }
