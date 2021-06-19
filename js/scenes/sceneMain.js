@@ -64,6 +64,12 @@ class SceneMain extends Phaser.Scene {
         child.y = yy;
 
         Align.scaleToGameW(child, 0.1);
+
+        var vx = Math.floor(Math.random() * 2) - 1;
+        var vy = Math.floor(Math.random() * 2) - 1;
+
+        var speed = Math.floor(Math.random() * 200) + 10;
+        child.body.setVelocity(vx * speed, vy * speed);
       }.bind(this)
     );
   }
