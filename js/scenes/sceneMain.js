@@ -37,7 +37,15 @@ class SceneMain extends Phaser.Scene {
 
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
+    //
+    //
+    //
     this.background.setInteractive();
+    this.background.on("pointerup", this.backgroundClicked, this);
+    this.background.on("pointerdown", this.onDown, this);
+    //
+    //
+    //
     this.physics.world.setBounds(
       0,
       0,
@@ -86,15 +94,29 @@ class SceneMain extends Phaser.Scene {
     );
     this.physics.add.collider(this.rockGroup);
   }
-  backgroundClicked() {
-    var tx = this.background.input.localX * this.background.scaleX;
-    var ty = this.background.input.localY * this.background.scaleY;
-    this.tx = tx;
-    this.ty = ty;
-    var angle = this.physics.moveTo(this.ship, tx, ty, 60);
+  getTimer() {
+    var d = new Date();
+    return d.getTime();
+  }
+  onDown() {
+    this.downTime = this.getTimer();
+  }
 
-    angle = this.toDegrees(angle);
-    this.ship.angle = angle;
+  backgroundClicked() {
+    var elapsed = Math.abs(this.downTime - this.getTimer());
+    console.log(elapsed);
+    if (elapsed < 300) {
+      var tx = this.background.input.localX * this.background.scaleX;
+      var ty = this.background.input.localY * this.background.scaleY;
+      this.tx = tx;
+      this.ty = ty;
+      var angle = this.physics.moveTo(this.ship, tx, ty, 60);
+
+      angle = this.toDegrees(angle);
+      this.ship.angle = angle;
+    } else {
+      console.log("Fire");
+    }
   }
   toDegrees(angle) {
     return angle * (180 / Math.PI);
