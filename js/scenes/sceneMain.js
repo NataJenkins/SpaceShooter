@@ -14,6 +14,11 @@ class SceneMain extends Phaser.Scene {
 
     this.load.image("ship", "images/player.png");
     this.load.image("background", "images/background.jpg");
+
+    this.load.spritesheet("rocks", "images/rocks.png", {
+      frameWidth: 125,
+      frameHeight: 100,
+    });
   }
   create() {
     //define our objects
@@ -41,6 +46,15 @@ class SceneMain extends Phaser.Scene {
       this.background.displayHeight
     );
     this.cameras.main.startFollow(this.ship, true);
+    this.rockGroup = this.physics.add.group({
+      key: "rocks",
+      frame: [0, 1, 2],
+      frameQuantity: 20,
+      bounceX: 1,
+      bounceY: 1,
+      angularVelocity: 1,
+      collideWorldBounds: true,
+    });
   }
   backgroundClicked() {
     var tx = this.background.input.localX * this.background.scaleX;
