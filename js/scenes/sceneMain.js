@@ -38,6 +38,13 @@ class SceneMain extends Phaser.Scene {
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
     this.background.setInteractive();
+    this.physics.world.setBounds(
+      0,
+      0,
+      this.background.displayWidth,
+      this.background.displayHeight
+    );
+
     this.background.on("pointerdown", this.backgroundClicked, this);
     this.cameras.main.setBounds(
       0,
@@ -67,6 +74,10 @@ class SceneMain extends Phaser.Scene {
 
         var vx = Math.floor(Math.random() * 2) - 1;
         var vy = Math.floor(Math.random() * 2) - 1;
+        if (vx == 0 && vy == 0) {
+          vx = 1;
+          vy = 1;
+        }
 
         var speed = Math.floor(Math.random() * 200) + 10;
         child.body.setVelocity(vx * speed, vy * speed);
