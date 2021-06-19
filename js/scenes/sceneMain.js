@@ -49,12 +49,23 @@ class SceneMain extends Phaser.Scene {
     this.rockGroup = this.physics.add.group({
       key: "rocks",
       frame: [0, 1, 2],
-      frameQuantity: 20,
+      frameQuantity: 4,
       bounceX: 1,
       bounceY: 1,
       angularVelocity: 1,
       collideWorldBounds: true,
     });
+    this.rockGroup.children.iterate(
+      function (child) {
+        var xx = Math.floor(Math.random() * this.background.displayWidth);
+        var yy = Math.floor(Math.random() * this.background.displayHeight);
+
+        child.x = xx;
+        child.y = yy;
+
+        Align.scaleToGameW(child, 0.1);
+      }.bind(this)
+    );
   }
   backgroundClicked() {
     var tx = this.background.input.localX * this.background.scaleX;
