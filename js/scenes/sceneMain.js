@@ -72,6 +72,7 @@ class SceneMain extends Phaser.Scene {
 
         Align.scaleToGameW(child, 0.1);
 
+        //-1,0,1
         var vx = Math.floor(Math.random() * 2) - 1;
         var vy = Math.floor(Math.random() * 2) - 1;
         if (vx == 0 && vy == 0) {
@@ -83,6 +84,7 @@ class SceneMain extends Phaser.Scene {
         child.body.setVelocity(vx * speed, vy * speed);
       }.bind(this)
     );
+    this.physics.add.collider(this.rockGroup);
   }
   backgroundClicked() {
     var tx = this.background.input.localX * this.background.scaleX;
