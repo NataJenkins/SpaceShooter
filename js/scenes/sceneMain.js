@@ -19,6 +19,10 @@ class SceneMain extends Phaser.Scene {
       frameWidth: 125,
       frameHeight: 100,
     });
+    this.load.spritesheet("exp", "images/exp.png", {
+      frameWidth: 64,
+      frameHeight: 64,
+    });
   }
   create() {
     //define our objects
@@ -101,6 +105,19 @@ class SceneMain extends Phaser.Scene {
       null,
       this
     );
+    var frameNames = this.anims.generateFrameNumbers("exp");
+    this.anims.create({
+      key: "boom",
+      frames: frameNames,
+      frameRate: 8,
+      repeat: -1,
+    });
+    this.explosion = this.add.sprite(
+      game.config.width / 2,
+      game.config.height / 2,
+      "exp"
+    );
+    this.explosion.play("boom");
   }
   destroyRock(bullet, rock) {
     bullet.destroy();
