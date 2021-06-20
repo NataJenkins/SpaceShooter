@@ -6,13 +6,13 @@ class SceneMain extends Phaser.Scene {
     //load our images or sounds
     this.load.image("button1", "images/ui/buttons/2/1.png");
     this.load.image("button2", "images/ui/buttons/2/5.png");
-    this.load.audio("cat", ["audio/meow.mp3", "audio/meow.ogg"]);
 
     this.load.image("toggleBack", "images/ui/toggles/1.png");
     this.load.image("sfxOff", "images/ui/icons/sfx_off.png");
     this.load.image("sfxOn", "images/ui/icons/sfx_on.png");
 
     this.load.image("ship", "images/player.png");
+    this.load.image("bullet", "images/bullet.png");
     this.load.image("background", "images/background.jpg");
 
     this.load.spritesheet("rocks", "images/rocks.png", {
@@ -61,6 +61,7 @@ class SceneMain extends Phaser.Scene {
       this.background.displayHeight
     );
     this.cameras.main.startFollow(this.ship, true);
+    this.bulletGroup = this.physics.add.group();
     this.rockGroup = this.physics.add.group({
       key: "rocks",
       frame: [0, 1, 2],
@@ -93,6 +94,17 @@ class SceneMain extends Phaser.Scene {
       }.bind(this)
     );
     this.physics.add.collider(this.rockGroup);
+    this.physics.add.collider(
+      this.bulletGroup,
+      this.rockGroup,
+      this.destroyRock,
+      null,
+      this
+    );
+  }
+  destroyRock(bullet, rock) {
+    bullet.destroy();
+    rock.destroy();
   }
   getTimer() {
     var d = new Date();
@@ -115,9 +127,28 @@ class SceneMain extends Phaser.Scene {
       angle = this.toDegrees(angle);
       this.ship.angle = angle;
     } else {
-      console.log("Fire");
+      this.makeBullet();
     }
   }
+  makeBullet() {
+    var dirObj = this.getDirFromAngle(this.ship.angle);
+    var bullet = this.physics.add.sprite(
+      this.ship.x + dirObj.tx * 30,
+      this.ship.y + dirObj.ty * 30,
+      "bullet"
+    );
+    this.bulletGroup.add(bullet);
+    bullet.angle = this.ship.angle;
+    bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
+  }
+
+  getDirFromAngle(angle) {
+    var rads = (angle * Math.PI) / 180;
+    var tx = Math.cos(rads);
+    var ty = Math.sin(rads);
+    return { tx, ty };
+  }
+
   toDegrees(angle) {
     return angle * (180 / Math.PI);
   }
