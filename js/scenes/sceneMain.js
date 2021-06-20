@@ -12,6 +12,7 @@ class SceneMain extends Phaser.Scene {
     this.load.image("sfxOn", "images/ui/icons/sfx_on.png");
 
     this.load.image("ship", "images/player.png");
+    this.load.image("eship", "images/eship.png");
     this.load.image("bullet", "images/bullet.png");
     this.load.image("background", "images/background.jpg");
 
@@ -118,6 +119,9 @@ class SceneMain extends Phaser.Scene {
       "exp"
     );
     this.explosion.play("boom");
+
+    this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
+    Align.scaleToGameW(this.eship, 0.25);
   }
   destroyRock(bullet, rock) {
     bullet.destroy();
