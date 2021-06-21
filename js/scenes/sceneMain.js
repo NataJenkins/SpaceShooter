@@ -123,7 +123,29 @@ class SceneMain extends Phaser.Scene {
 
     this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
     Align.scaleToGameW(this.eship, 0.25);
+    this.makeInfo();
   }
+
+  makeInfo() {
+    this.text1 = this.add.text(0, 0, "Shields\n100", {
+      align: "center",
+      backgroundColor: "#000000",
+    });
+    this.text2 = this.add.text(0, 0, "Enemy Shields\n100", {
+      align: "center",
+      backgroundColor: "#000000",
+    });
+
+    this.text1.setOrigin(0.5, 0.5);
+    this.text2.setOrigin(0.5, 0.5);
+
+    this.uiGrid = new AlignGrid({ scene: this, rows: 11, cols: 11 });
+    this.uiGrid.showNumbers();
+
+    this.uiGrid.placeAtIndex(2, this.text1);
+    this.uiGrid.placeAtIndex(10, this.text2);
+  }
+
   destroyRock(bullet, rock) {
     bullet.destroy();
     var explosion = this.add.sprite(rock.x, rock.y, "exp");
