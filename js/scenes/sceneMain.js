@@ -14,6 +14,7 @@ class SceneMain extends Phaser.Scene {
     this.load.image("ship", "images/player.png");
     this.load.image("eship", "images/eship.png");
     this.load.image("bullet", "images/bullet.png");
+    this.load.image("ebullet", "images/ebullet.png");
     this.load.image("background", "images/background.jpg");
 
     this.load.spritesheet("rocks", "images/rocks.png", {
@@ -185,6 +186,15 @@ class SceneMain extends Phaser.Scene {
 
     if (distX < 10 && distY < 10) {
       this.ship.body.setVelocity(0, 0);
+    }
+
+    var distX2 = Math.abs(this.ship.x - this.eship.x);
+    var distY2 = Math.abs(this.ship.y - this.eship.y);
+
+    if (distX2 < game.config.width / 5 && distY2 < game.config.height / 5) {
+      this.eship.alpha = 0.5;
+    } else {
+      this.eship.alpha = 1;
     }
   }
 }
