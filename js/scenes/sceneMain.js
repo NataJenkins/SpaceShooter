@@ -35,12 +35,14 @@ class SceneMain extends Phaser.Scene {
 
     this.centerX = game.config.width / 2;
     this.centerY = game.config.height / 2;
-
+    //
+    //
+    //
     this.background = this.add.image(0, 0, "background");
     this.background.setOrigin(0, 0);
     this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
+    this.ship.body.collideWorldBounds = true;
     Align.scaleToGameW(this.ship, 0.125);
-
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
     //
@@ -119,6 +121,7 @@ class SceneMain extends Phaser.Scene {
     this.explosion.play("boom");
 
     this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
+    this.eship.body.collideWorldBounds = true;
     Align.scaleToGameW(this.eship, 0.25);
     this.makeInfo();
     this.setColiders();
