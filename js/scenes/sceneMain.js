@@ -146,6 +146,13 @@ class SceneMain extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.collider(
+      this.ebulletGroup,
+      this.ship,
+      this.damagePlayer,
+      null,
+      this
+    );
   }
 
   makeInfo() {
@@ -170,6 +177,11 @@ class SceneMain extends Phaser.Scene {
 
     this.text1.setScrollFactor(0);
     this.text2.setScrollFactor(0);
+  }
+  damagePlayer(ship, ebullet) {
+    var explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
+    explosion.play("boom");
+    ebullet.destroy();
   }
   damageEnemy(ship, bullet) {
     var explosion = this.add.sprite(bullet.x, bullet.y, "exp");
