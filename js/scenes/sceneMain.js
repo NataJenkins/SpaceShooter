@@ -156,6 +156,20 @@ class SceneMain extends Phaser.Scene {
       null,
       this
     );
+    this.physics.add.collider(
+      this.rockGroup,
+      this.ship,
+      this.rockHitPlayer,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.rockGroup,
+      this.eship,
+      this.rockHitEnemy,
+      null,
+      this
+    );
   }
 
   makeInfo() {
@@ -182,6 +196,16 @@ class SceneMain extends Phaser.Scene {
     this.text2.setScrollFactor(0);
   }
 
+  rockHitPlayer(ship, rock) {
+    var explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
+    rock.destroy();
+  }
+  rockHitEnemy(ship, rock) {
+    var explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
+    rock.destroy();
+  }
   damagePlayer(ship, ebullet) {
     var explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
     explosion.play("boom");
