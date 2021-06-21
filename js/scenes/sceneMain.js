@@ -100,21 +100,10 @@ class SceneMain extends Phaser.Scene {
         child.body.setVelocity(vx * speed, vy * speed);
       }.bind(this)
     );
-    this.physics.add.collider(this.rockGroup);
-    this.physics.add.collider(
-      this.bulletGroup,
-      this.rockGroup,
-      this.destroyRock,
-      null,
-      this
-    );
-    this.physics.add.collider(
-      this.ebulletGroup,
-      this.rockGroup,
-      this.destroyRock,
-      null,
-      this
-    );
+
+    //
+    //
+    //
     var frameNames = this.anims.generateFrameNumbers("exp");
     this.anims.create({
       key: "boom",
@@ -132,6 +121,31 @@ class SceneMain extends Phaser.Scene {
     this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
     Align.scaleToGameW(this.eship, 0.25);
     this.makeInfo();
+    this.setColiders();
+  }
+  setColiders() {
+    this.physics.add.collider(this.rockGroup);
+    this.physics.add.collider(
+      this.bulletGroup,
+      this.rockGroup,
+      this.destroyRock,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.ebulletGroup,
+      this.rockGroup,
+      this.destroyRock,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.bulletGroup,
+      this.eship,
+      this.damageEnemy,
+      null,
+      this
+    );
   }
 
   makeInfo() {
@@ -157,7 +171,11 @@ class SceneMain extends Phaser.Scene {
     this.text1.setScrollFactor(0);
     this.text2.setScrollFactor(0);
   }
-
+  damageEnemy(ship, bullet) {
+    var explosion = this.add.sprite(bullet.x, bullet.y, "exp");
+    explosion.play("boom");
+    bullet.destroy();
+  }
   destroyRock(bullet, rock) {
     bullet.destroy();
     var explosion = this.add.sprite(rock.x, rock.y, "exp");
