@@ -181,6 +181,7 @@ class SceneMain extends Phaser.Scene {
     this.text1.setScrollFactor(0);
     this.text2.setScrollFactor(0);
   }
+
   damagePlayer(ship, ebullet) {
     var explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
     explosion.play("boom");
@@ -190,6 +191,9 @@ class SceneMain extends Phaser.Scene {
     var explosion = this.add.sprite(bullet.x, bullet.y, "exp");
     explosion.play("boom");
     bullet.destroy();
+    var angle2 = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
+    angle2 = this.toDegrees(angle2);
+    this.eship.angle = angle2;
   }
   destroyRock(bullet, rock) {
     bullet.destroy();
@@ -197,10 +201,12 @@ class SceneMain extends Phaser.Scene {
     explosion.play("boom");
     rock.destroy();
   }
+
   getTimer() {
     var d = new Date();
     return d.getTime();
   }
+
   onDown() {
     this.downTime = this.getTimer();
   }
@@ -217,14 +223,26 @@ class SceneMain extends Phaser.Scene {
 
       angle = this.toDegrees(angle);
       this.ship.angle = angle;
+      //
+      //
+      //
+      var distX2 = Math.abs(this.ship.x - tx);
+      var distY2 = Math.abs(this.ship.y - ty);
+      if (distX2 > 30 && distY2 > 30) {
+        var angle2 = this.physics.moveTo(
+          this.eship,
+          this.ship.x,
+          this.ship.y,
+          60
+        );
+        angle2 = this.toDegrees(angle2);
+        this.eship.angle = angle2;
+      }
     } else {
       this.makeBullet();
     }
-
-    var angle2 = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 60);
-    angle2 = this.toDegrees(angle2);
-    this.eship.angle = angle2;
   }
+
   makeBullet() {
     var dirObj = this.getDirFromAngle(this.ship.angle);
     var bullet = this.physics.add.sprite(
@@ -259,10 +277,10 @@ class SceneMain extends Phaser.Scene {
     var ty = Math.sin(rads);
     return { tx, ty };
   }
-
   toDegrees(angle) {
     return angle * (180 / Math.PI);
   }
+
   update() {
     var distX = Math.abs(this.ship.x - this.tx);
     var distY = Math.abs(this.ship.y - this.ty);
