@@ -68,6 +68,7 @@ class SceneMain extends Phaser.Scene {
     );
     this.cameras.main.startFollow(this.ship, true);
     this.bulletGroup = this.physics.add.group();
+    this.ebulletGroup = this.physics.add.group();
     this.rockGroup = this.physics.add.group({
       key: "rocks",
       frame: [0, 1, 2],
@@ -102,6 +103,13 @@ class SceneMain extends Phaser.Scene {
     this.physics.add.collider(this.rockGroup);
     this.physics.add.collider(
       this.bulletGroup,
+      this.rockGroup,
+      this.destroyRock,
+      null,
+      this
+    );
+    this.physics.add.collider(
+      this.ebulletGroup,
       this.rockGroup,
       this.destroyRock,
       null,
@@ -206,6 +214,7 @@ class SceneMain extends Phaser.Scene {
       this.eship.y,
       "ebullet"
     );
+    this.ebulletGroup.add(ebullet);
 
     ebullet.body.angularVelocity = 10;
     this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 100);
