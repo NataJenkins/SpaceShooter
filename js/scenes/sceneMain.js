@@ -209,8 +209,8 @@ class SceneMain extends Phaser.Scene {
     this.text1.setText("Shields\n" + this.shields);
   }
   downEnemy() {
-    this.shields--;
-    this.text2.setText("Enemy Shields\n" + this.shields);
+    this.eshields--;
+    this.text2.setText("Enemy Shields\n" + this.eshields);
   }
 
   rockHitPlayer(ship, rock) {
@@ -233,6 +233,7 @@ class SceneMain extends Phaser.Scene {
     ebullet.destroy();
     this.downPlayer();
   }
+
   damageEnemy(ship, bullet) {
     var explosion = this.add.sprite(bullet.x, bullet.y, "exp");
     explosion.play("boom");
@@ -240,7 +241,7 @@ class SceneMain extends Phaser.Scene {
     var angle2 = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
     angle2 = this.toDegrees(angle2);
     this.eship.angle = angle2;
-    this.downEnemy;
+    this.downEnemy();
   }
   destroyRock(bullet, rock) {
     bullet.destroy();
