@@ -33,6 +33,8 @@ class SceneMain extends Phaser.Scene {
     controller = new Controller();
     var mediaManager = new MediaManager({ scene: this });
 
+    this.shields = 100;
+    this.eshields = 100;
     this.centerX = game.config.width / 2;
     this.centerY = game.config.height / 2;
     //
@@ -71,38 +73,8 @@ class SceneMain extends Phaser.Scene {
     this.cameras.main.startFollow(this.ship, true);
     this.bulletGroup = this.physics.add.group();
     this.ebulletGroup = this.physics.add.group();
-    this.rockGroup = this.physics.add.group({
-      key: "rocks",
-      frame: [0, 1, 2],
-      frameQuantity: 4,
-      bounceX: 1,
-      bounceY: 1,
-      angularVelocity: 1,
-      collideWorldBounds: true,
-    });
-    this.rockGroup.children.iterate(
-      function (child) {
-        var xx = Math.floor(Math.random() * this.background.displayWidth);
-        var yy = Math.floor(Math.random() * this.background.displayHeight);
-
-        child.x = xx;
-        child.y = yy;
-
-        Align.scaleToGameW(child, 0.1);
-
-        //-1,0,1
-        var vx = Math.floor(Math.random() * 2) - 1;
-        var vy = Math.floor(Math.random() * 2) - 1;
-        if (vx == 0 && vy == 0) {
-          vx = 1;
-          vy = 1;
-        }
-
-        var speed = Math.floor(Math.random() * 200) + 10;
-        child.body.setVelocity(vx * speed, vy * speed);
-      }.bind(this)
-    );
-
+    this.rockGroup = this.physics.add.group();
+    this.makeRocks();
     //
     //
     //
@@ -172,6 +144,42 @@ class SceneMain extends Phaser.Scene {
     );
   }
 
+  makeRocks() {
+    if (this.rockGroup.getChildren().length == 0) {
+      this.rockGroup = this.physics.add.group({
+        key: "rocks",
+        frame: [0, 1, 2],
+        frameQuantity: 1,
+        bounceX: 1,
+        bounceY: 1,
+        angularVelocity: 1,
+        collideWorldBounds: true,
+      });
+      this.rockGroup.children.iterate(
+        function (child) {
+          var xx = Math.floor(Math.random() * this.background.displayWidth);
+          var yy = Math.floor(Math.random() * this.background.displayHeight);
+
+          child.x = xx;
+          child.y = yy;
+
+          Align.scaleToGameW(child, 0.1);
+
+          //-1,0,1
+          var vx = Math.floor(Math.random() * 2) - 1;
+          var vy = Math.floor(Math.random() * 2) - 1;
+          if (vx == 0 && vy == 0) {
+            vx = 1;
+            vy = 1;
+          }
+
+          var speed = Math.floor(Math.random() * 200) + 10;
+          child.body.setVelocity(vx * speed, vy * speed);
+        }.bind(this)
+      );
+    }
+  }
+
   makeInfo() {
     this.text1 = this.add.text(0, 0, "Shields\n100", {
       fontSize: game.config.width / 30,
@@ -196,20 +204,34 @@ class SceneMain extends Phaser.Scene {
     this.text2.setScrollFactor(0);
   }
 
+  downPlayer() {
+    this.shields--;
+    this.text1.setText("Shields\n" + this.shields);
+  }
+  downEnemy() {
+    this.shields--;
+    this.text2.setText("Enemy Shields\n" + this.shields);
+  }
+
   rockHitPlayer(ship, rock) {
     var explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
     rock.destroy();
+    this.makeRocks();
+    this.downPlayer();
   }
   rockHitEnemy(ship, rock) {
     var explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
     rock.destroy();
+    this.makeRocks();
+    this.downEnemy();
   }
   damagePlayer(ship, ebullet) {
     var explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
     explosion.play("boom");
     ebullet.destroy();
+    this.downPlayer();
   }
   damageEnemy(ship, bullet) {
     var explosion = this.add.sprite(bullet.x, bullet.y, "exp");
@@ -218,12 +240,14 @@ class SceneMain extends Phaser.Scene {
     var angle2 = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
     angle2 = this.toDegrees(angle2);
     this.eship.angle = angle2;
+    this.downEnemy;
   }
   destroyRock(bullet, rock) {
     bullet.destroy();
     var explosion = this.add.sprite(rock.x, rock.y, "exp");
     explosion.play("boom");
     rock.destroy();
+    this.makeRocks();
   }
 
   getTimer() {
