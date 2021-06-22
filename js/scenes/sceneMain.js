@@ -33,8 +33,10 @@ class SceneMain extends Phaser.Scene {
     controller = new Controller();
     var mediaManager = new MediaManager({ scene: this });
 
-    this.shields = 100;
-    this.eshields = 100;
+    this.shields = 3;
+    this.eshields = 3;
+    model.playerWon == true;
+
     this.centerX = game.config.width / 2;
     this.centerY = game.config.height / 2;
     //
@@ -207,10 +209,18 @@ class SceneMain extends Phaser.Scene {
   downPlayer() {
     this.shields--;
     this.text1.setText("Shields\n" + this.shields);
+    if (this.shields == 0) {
+      model.playerWon = false;
+      this.scene.start("SceneOver");
+    }
   }
   downEnemy() {
     this.eshields--;
     this.text2.setText("Enemy Shields\n" + this.eshields);
+    if (this.eshields == 0) {
+      model.playerWon = false;
+      this.scene.start("SceneOver");
+    }
   }
 
   rockHitPlayer(ship, rock) {
@@ -335,6 +345,9 @@ class SceneMain extends Phaser.Scene {
     var distY = Math.abs(this.ship.y - this.ty);
 
     if (distX < 10 && distY < 10) {
+      if (!ship.body) {
+        this.scene.start("SceneOver");
+      }
       this.ship.body.setVelocity(0, 0);
     }
 
