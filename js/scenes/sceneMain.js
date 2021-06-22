@@ -218,7 +218,7 @@ class SceneMain extends Phaser.Scene {
     this.eshields--;
     this.text2.setText("Enemy Shields\n" + this.eshields);
     if (this.eshields == 0) {
-      model.playerWon = false;
+      model.playerWon = true;
       this.scene.start("SceneOver");
     }
   }
@@ -345,9 +345,6 @@ class SceneMain extends Phaser.Scene {
     var distY = Math.abs(this.ship.y - this.ty);
 
     if (distX < 10 && distY < 10) {
-      if (!ship.body) {
-        this.scene.start("SceneOver");
-      }
       this.ship.body.setVelocity(0, 0);
     }
 
