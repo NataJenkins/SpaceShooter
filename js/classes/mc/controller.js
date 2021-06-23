@@ -7,20 +7,20 @@ class Controller {
   }
 
   toggleSound(val) {
-    model.soundOn = val;
+    this.model.soundOn = val;
   }
 
   toggleMusic(val) {
-    model.musicOn = val;
+    this.model.musicOn = val;
   }
 
   setScore(score) {
-    model.score = score;
+    this.model.score = score;
   }
 
   upPoints(points) {
     let { score } = model;
     score += points;
-    model.score = score;
+    this.model.score = score;
   }
 }

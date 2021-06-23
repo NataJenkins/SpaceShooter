@@ -34,5 +34,3 @@ class Bar extends Phaser.GameObjects.Container {
     this.graphics.scaleX = per;
   }
 }
-
-export default Bar;
