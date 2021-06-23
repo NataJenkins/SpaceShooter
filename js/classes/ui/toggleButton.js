@@ -49,7 +49,7 @@ class ToggleButton extends Phaser.GameObjects.Container {
   }
 
   setIcons() {
-    if (this.value == true) {
+    if (this.value === true) {
       this.onIcon.visible = true;
       this.offIcon.visible = false;
     } else {

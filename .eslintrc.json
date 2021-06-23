@@ -16,7 +16,8 @@
     "eol-last": "off",
     "no-undef": "off",
     "no-underscore-dangle": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "constructor-super": "off"
   },
   "ignorePatterns": ["dist/", "build/"]
 }
