@@ -5,16 +5,16 @@ class SoundButtons extends Phaser.GameObjects.Container {
 
     this.musicButton = new ToggleButton({
       scene: this.scene,
-      backKey: "toggleBack",
-      onIcon: "musicOn",
-      offIcon: "musicOff",
+      backKey: 'toggleBack',
+      onIcon: 'musicOn',
+      offIcon: 'musicOff',
       event: G.TOGGLE_MUSIC,
     });
     this.sfxButton = new ToggleButton({
       scene: this.scene,
-      backKey: "toggleBack",
-      onIcon: "sfxOn",
-      offIcon: "sfxOff",
+      backKey: 'toggleBack',
+      onIcon: 'sfxOn',
+      offIcon: 'sfxOff',
       event: G.TOGGLE_SOUND,
     });
 

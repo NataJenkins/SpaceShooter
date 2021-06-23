@@ -9,6 +9,7 @@ class Controller {
   toggleSound(val) {
     model.soundOn = val;
   }
+
   toggleMusic(val) {
     model.musicOn = val;
   }
@@ -16,8 +17,9 @@ class Controller {
   setScore(score) {
     model.score = score;
   }
+
   upPoints(points) {
-    var score = model.score;
+    let { score } = model;
     score += points;
     model.score = score;
   }

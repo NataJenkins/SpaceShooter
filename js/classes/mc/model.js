@@ -9,15 +9,17 @@ class Model {
     this._musicOn = val;
     emitter.emit(G.MUSIC_CHANGED);
   }
+
   get musicOn() {
     return this._musicOn;
   }
 
   set score(val) {
     this._score = val;
-    console.log("score updated");
+    console.log('score updated');
     emitter.emit(G.SCORE_UPDATED);
   }
+
   get score() {
     return this._score;
   }

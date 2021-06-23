@@ -11,7 +11,7 @@ class Bar extends Phaser.GameObjects.Container {
     if (!config.height) {
       config.height = config.width / 4;
     }
-    //draw the bar
+    // draw the bar
     //
     this.graphics = this.scene.add.graphics();
     this.graphics.fillStyle(config.color, 1);
@@ -29,7 +29,10 @@ class Bar extends Phaser.GameObjects.Container {
     }
     this.scene.add.existing(this);
   }
+
   setPercent(per) {
     this.graphics.scaleX = per;
   }
 }
+
+export default Bar;

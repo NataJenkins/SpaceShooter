@@ -4,6 +4,7 @@ class MediaManager {
     emitter.on(G.PLAY_SOUND, this.playSound, this);
     emitter.on(G.MUSIC_CHANGED, this.musicChanged, this);
   }
+
   musicChanged() {
     if (this.background) {
       if (model.musicOn == false) {
@@ -13,12 +14,14 @@ class MediaManager {
       }
     }
   }
+
   playSound(key) {
     if (model.soundOn == true) {
-      var sound = this.scene.sound.add(key);
+      const sound = this.scene.sound.add(key);
       sound.play();
     }
   }
+
   setBackgroundMusic(key) {
     if (model.musicOn == true) {
       this.background = this.scene.sound.add(key, { volume: 0.5, loop: true });
