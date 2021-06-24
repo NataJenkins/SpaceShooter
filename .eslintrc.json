@@ -20,5 +20,6 @@
     "constructor-super": "off",
     "no-unused-expressions": "off"
   },
-  "ignorePatterns": ["dist/", "build/"]
+  "ignorePatterns": ["dist/", "build/"],
+  "eslintIgnore": ["phaser.min.js"]
 }
