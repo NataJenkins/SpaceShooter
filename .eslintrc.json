@@ -17,7 +17,8 @@
     "no-undef": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
-    "constructor-super": "off"
+    "constructor-super": "off",
+    "no-unused-expressions": "off"
   },
   "ignorePatterns": ["dist/", "build/"]
 }

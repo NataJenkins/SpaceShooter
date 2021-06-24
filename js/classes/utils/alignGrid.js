@@ -2,7 +2,6 @@ class AlignGrid {
   constructor(config) {
     this.config = config;
     if (!config.scene) {
-      console.log('missing Scene');
       return;
     }
     if (!config.rows) {
@@ -25,14 +24,15 @@ class AlignGrid {
   }
 
   show() {
+    let i = 0;
     this.graphics = this.scene.add.graphics();
     this.graphics.lineStyle(2, 0xff0000);
 
-    for (var i = 0; i < this.config.width; i += this.cw) {
+    for (i = 0; i < this.config.width; i += this.cw) {
       this.graphics.moveTo(i, 0);
       this.graphics.lineTo(i, this.config.height);
     }
-    for (var i = 0; i < this.config.height; i += this.ch) {
+    for (i = 0; i < this.config.height; i += this.ch) {
       this.graphics.moveTo(0, i);
       this.graphics.lineTo(this.config.width, i);
     }
@@ -57,12 +57,12 @@ class AlignGrid {
   showNumbers() {
     this.show();
     let count = 0;
-    for (let i = 0; i < this.config.rows; i++) {
-      for (let j = 0; j < this.config.cols; j++) {
+    for (let i = 0; i < this.config.rows; i += 1) {
+      for (let j = 0; j < this.config.cols; j += 1) {
         const numText = this.scene.add.text(0, 0, count, { color: '#ff0000' });
         numText.setOrigin(0.5, 0.5);
         this.placeAtIndex(count, numText);
-        count++;
+        count += 1;
       }
     }
   }
