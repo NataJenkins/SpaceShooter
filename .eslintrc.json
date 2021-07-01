@@ -18,8 +18,11 @@
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
     "constructor-super": "off",
-    "no-unused-expressions": "off"
+    "no-unused-expressions": "off",
+    "import/no-cycle": "off",
+    "import/extensions": "off",
+    "import/no-mutable-exports": "off",
+    "max-classes-per-file": "off"
   },
-  "ignorePatterns": ["dist/", "build/"],
-  "eslintIgnore": ["phaser.min.js"]
+  "ignorePatterns": ["dist/", "build/", "phaser.min.js"]
 }

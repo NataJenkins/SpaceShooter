@@ -1,4 +1,4 @@
-import { model, emitter } from "../../main.js";
+import { model, emitter } from '../../main.js';
 
 class FlatButton extends Phaser.GameObjects.Container {
   constructor(config) {
@@ -35,11 +35,11 @@ class FlatButton extends Phaser.GameObjects.Container {
 
     if (config.event) {
       this.back.setInteractive();
-      this.back.on("pointerdown", this.pressed, this);
+      this.back.on('pointerdown', this.pressed, this);
     }
     if (model.isMobile === -1) {
-      this.back.on("pointerover", this.over, this);
-      this.back.on("pointerout", this.out, this);
+      this.back.on('pointerover', this.over, this);
+      this.back.on('pointerout', this.out, this);
     }
   }
 

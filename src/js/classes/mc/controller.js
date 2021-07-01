@@ -1,4 +1,4 @@
-import { emitter, G } from "../../main.js";
+import { emitter, G } from '../../main.js';
 
 export default class Controller {
   constructor() {

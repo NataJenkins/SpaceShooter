@@ -1,7 +1,8 @@
-import { game } from "../../main.js";
+import { game } from '../../main.js';
 
 export class Align {
   scaleToGameW(obj, per) {
+    this.obj = obj;
     obj.displayWidth = game.config.width * per;
     obj.scaleY = obj.scaleX;
   }
@@ -83,7 +84,7 @@ export class AlignGrid {
     let count = 0;
     for (let i = 0; i < this.config.rows; i += 1) {
       for (let j = 0; j < this.config.cols; j += 1) {
-        const numText = this.scene.add.text(0, 0, count, { color: "#ff0000" });
+        const numText = this.scene.add.text(0, 0, count, { color: '#ff0000' });
         numText.setOrigin(0.5, 0.5);
         this.placeAtIndex(count, numText);
         count += 1;

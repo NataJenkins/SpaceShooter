@@ -1,24 +1,24 @@
-var path = require("path");
+const path = require('path');
 
 module.exports = {
   entry: {
-    app: "./src/js/main.js",
+    app: './src/js/main.js',
   },
 
   output: {
-    path: path.resolve(__dirname, "build"),
-    filename: "app.bundle.js",
+    path: path.resolve(__dirname, 'build'),
+    filename: 'app.bundle.js',
   },
 
   module: {
     rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, "src"),
+        include: path.resolve(__dirname, 'src'),
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["env"],
+            presets: ['env'],
           },
         },
       },
@@ -26,6 +26,6 @@ module.exports = {
   },
 
   devServer: {
-    contentBase: path.resolve(__dirname, "build"),
+    contentBase: path.resolve(__dirname, 'build'),
   },
 };
