@@ -1,4 +1,8 @@
-class SceneMain extends Phaser.Scene {
+import Controller from "../classes/mc/controller.js";
+import { model, game, align } from "../main.js";
+import { AlignGrid } from "../classes/utils/align.js";
+
+export default class SceneMain extends Phaser.Scene {
   constructor() {
     super("SceneMain");
   }
@@ -31,9 +35,9 @@ class SceneMain extends Phaser.Scene {
   create() {
     // define our objects
     // set up
-    emitter = new Phaser.Events.EventEmitter();
-    controller = new Controller();
-    const mediaManager = new MediaManager({ scene: this });
+    let controller = new Controller();
+
+    console.log(align);
 
     this.shields = 3;
     this.eshields = 3;
@@ -48,7 +52,7 @@ class SceneMain extends Phaser.Scene {
     this.background.setOrigin(0, 0);
     this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
     this.ship.body.collideWorldBounds = true;
-    Align.scaleToGameW(this.ship, 0.125);
+    align.scaleToGameW(this.ship, 0.125);
     this.background.scaleX = this.ship.scaleX;
     this.background.scaleY = this.ship.scaleY;
     //
@@ -89,16 +93,16 @@ class SceneMain extends Phaser.Scene {
       frameRate: 16,
       repeat: false,
     });
-    this.explosion = this.add.sprite(
-      game.config.width / 2,
-      game.config.height / 2,
-      "exp"
-    );
-    this.explosion.play("boom");
+    // this.explosion = this.add.sprite(
+    //   game.config.width / 2,
+    //   game.config.height / 2,
+    //   "exp"
+    // );
+    // this.explosion.play("boom");
 
     this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
     this.eship.body.collideWorldBounds = true;
-    Align.scaleToGameW(this.eship, 0.25);
+    align.scaleToGameW(this.eship, 0.25);
     this.makeInfo();
     this.setColiders();
   }
@@ -167,7 +171,7 @@ class SceneMain extends Phaser.Scene {
         child.x = xx;
         child.y = yy;
 
-        Align.scaleToGameW(child, 0.1);
+        align.scaleToGameW(child, 0.1);
 
         // -1,0,1
         let vx = Math.floor(Math.random() * 2) - 1;
@@ -210,16 +214,19 @@ class SceneMain extends Phaser.Scene {
   downPlayer() {
     this.shields -= 1;
     this.text1.setText(`Shields\n${this.shields}`);
-    if (this.shields === 0) {
+    if (this.shields <= 0) {
+      console.log("hola");
       model.playerWon = false;
       this.scene.start("SceneOver");
+    } else {
+      console.log("adios");
     }
   }
 
   downEnemy() {
     this.eshields -= 1;
     this.text2.setText(`Enemy Shields\n${this.eshields}`);
-    if (this.eshields === 0) {
+    if (this.eshields <= 0) {
       model.playerWon = true;
       this.scene.start("SceneOver");
     }

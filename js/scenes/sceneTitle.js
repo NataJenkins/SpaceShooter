@@ -1,3 +1,8 @@
+import FlatButton from "../classes/ui/flatButton.js";
+import Controller from "../classes/mc/controller.js";
+import { AlignGrid } from "../classes/utils/align.js";
+import { emitter } from "../main.js";
+
 class SceneTitle extends Phaser.Scene {
   constructor() {
     super("SceneTitle");
@@ -8,8 +13,7 @@ class SceneTitle extends Phaser.Scene {
   }
 
   create() {
-    emitter = new Phaser.Events.EventEmitter();
-    controller = new Controller();
+    let controller = new Controller();
 
     this.alignGrid = new AlignGrid({ rows: 11, cols: 11, scene: this });
 
@@ -29,3 +33,5 @@ class SceneTitle extends Phaser.Scene {
     this.scene.start("SceneMain");
   }
 }
+
+export default SceneTitle;
