@@ -1,4 +1,8 @@
-class SceneOver extends Phaser.Scene {
+import { AlignGrid } from "../classes/utils/align.js";
+import { align, game, model, emitter } from "../main.js";
+import FlatButton from "../classes/ui/flatButton.js";
+
+export default class SceneOver extends Phaser.Scene {
   constructor() {
     super("SceneOver");
   }
@@ -12,7 +16,7 @@ class SceneOver extends Phaser.Scene {
     this.alignGrid = new AlignGrid({ rows: 11, cols: 11, scene: this });
 
     const title = this.add.image(0, 0, "title");
-    Align.scaleToGameW(title, 0.8);
+    align.scaleToGameW(title, 0.8);
     this.alignGrid.placeAtIndex(16, title);
 
     this.winnerText = this.add.text(0, 0, "WINNER", {
@@ -26,22 +30,22 @@ class SceneOver extends Phaser.Scene {
     } else {
       this.winner = this.add.image(0, 0, "eship");
     }
-    Align.scaleToGameW(this.winner, 0.25);
+    align.scaleToGameW(this.winner, 0.25);
     this.winner.angle = 270;
     this.alignGrid.placeAtIndex(60, this.winner);
 
-    const btnStart = new FlatButton({
-      scene: this,
-      key: "button1",
-      text: "Play Again!",
-      event: "start_game",
-    });
-    this.alignGrid.placeAtIndex(93, btnStart);
+    // const btnStart = new FlatButton({
+    //   scene: this,
+    //   key: "button1",
+    //   text: "Play Again!",
+    //   event: "start_game",
+    // });
+    // this.alignGrid.placeAtIndex(93, btnStart);
 
-    emitter.on("start_game", this.startGame, this);
+    // emitter.on("start_game", this.startGame, this);
   }
 
-  startGame() {
-    this.scene.start("SceneMain");
-  }
+  // startGame() {
+  //   this.scene.start("SceneMain");
+  // }
 }
