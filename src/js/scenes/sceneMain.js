@@ -39,8 +39,8 @@ export default class SceneMain extends Phaser.Scene {
 
     console.log(align);
 
-    this.shields = 3;
-    this.eshields = 3;
+    this.shields = 50;
+    this.eshields = 50;
     model.playerWon === true;
 
     this.centerX = game.config.width / 2;
@@ -188,12 +188,12 @@ export default class SceneMain extends Phaser.Scene {
   }
 
   makeInfo() {
-    this.text1 = this.add.text(0, 0, "Shields\n100", {
+    this.text1 = this.add.text(0, 0, "Shields\n50", {
       fontSize: game.config.width / 30,
       align: "center",
       backgroundColor: "#000000",
     });
-    this.text2 = this.add.text(0, 0, "Enemy Shields\n100", {
+    this.text2 = this.add.text(0, 0, "Enemy Shields\n50", {
       fontSize: game.config.width / 30,
       align: "center",
       backgroundColor: "#000000",
@@ -205,7 +205,7 @@ export default class SceneMain extends Phaser.Scene {
     this.uiGrid = new AlignGrid({ scene: this, rows: 11, cols: 11 });
 
     this.uiGrid.placeAtIndex(2, this.text1);
-    this.uiGrid.placeAtIndex(10, this.text2);
+    this.uiGrid.placeAtIndex(8, this.text2);
 
     this.text1.setScrollFactor(0);
     this.text2.setScrollFactor(0);
