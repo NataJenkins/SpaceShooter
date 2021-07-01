@@ -4,6 +4,8 @@
 
 > space shooter game created with phaser3
 
+![screenshot](./Screenshot_4.jpg)
+
 ![screenshot]()
 
 ## Built With
@@ -11,6 +13,10 @@
 - Phaser
 - Javascript
 - Webpack
+
+## Live Demo
+
+[Live Demo Link](https://natajenkins.github.io/SpaceShooter/)
 
 ## Getting Started
 
@@ -35,8 +41,7 @@
 
 ### Usage
 
-**open the game on web browser**
-**click on start playing**
+**In order to run the game just type in npm run start this will open a new web browser and open the game for you You will be taken to the Menu page**
 
 ## How to Play the Game
 
@@ -48,9 +53,7 @@
 
 - **the game ends if your ship get out of shields**
 
-- **you can shoot to deal damage tho the green ship**
-
-- **rocks also make damage to both ships**
+- **Shoot the enemy ship to make damage to it**
 
 ## Authors
 
