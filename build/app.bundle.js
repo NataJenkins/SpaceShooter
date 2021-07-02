@@ -108,19 +108,19 @@ var G = void 0;
 var controller = void 0;
 var align = new _align.Align();
 window.onload = function () {
-  var isMobile = navigator.userAgent.indexOf("Mobile");
+  var isMobile = navigator.userAgent.indexOf('Mobile');
   var config = void 0;
   if (isMobile === -1) {
-    isMobile = navigator.userAgent.indexOf("Tablet");
+    isMobile = navigator.userAgent.indexOf('Tablet');
   }
   if (isMobile === -1) {
     config = {
       type: Phaser.Auto,
       width: 480,
       height: 600,
-      parent: "phaser-game",
+      parent: 'phaser-game',
       physics: {
-        default: "arcade",
+        default: 'arcade',
         arcade: {
           debug: false
         }
@@ -132,9 +132,9 @@ window.onload = function () {
       type: Phaser.AUTO,
       width: window.innerWidth,
       height: window.innerHeight,
-      parent: "phaser-game",
+      parent: 'phaser-game',
       physics: {
-        default: "arcade",
+        default: 'arcade',
         arcade: {
           debug: false
         }
@@ -184,22 +184,22 @@ var Controller = function () {
   }
 
   _createClass(Controller, [{
-    key: "toggleSound",
+    key: 'toggleSound',
     value: function toggleSound(val) {
       this.model.soundOn = val;
     }
   }, {
-    key: "toggleMusic",
+    key: 'toggleMusic',
     value: function toggleMusic(val) {
       this.model.musicOn = val;
     }
   }, {
-    key: "setScore",
+    key: 'setScore',
     value: function setScore(score) {
       this.model.score = score;
     }
   }, {
-    key: "upPoints",
+    key: 'upPoints',
     value: function upPoints(points) {
       var _model = model,
           score = _model.score;
@@ -238,8 +238,9 @@ var Align = exports.Align = function () {
   }
 
   _createClass(Align, [{
-    key: "scaleToGameW",
+    key: 'scaleToGameW',
     value: function scaleToGameW(obj, per) {
+      this.obj = obj;
       obj.displayWidth = _main.game.config.width * per;
       obj.scaleY = obj.scaleX;
     }
@@ -247,18 +248,18 @@ var Align = exports.Align = function () {
     // CENTER
 
   }], [{
-    key: "center",
+    key: 'center',
     value: function center(obj) {
       obj.x = _main.game.config.width / 2;
       obj.y = _main.game.config.height / 2;
     }
   }, {
-    key: "centerH",
+    key: 'centerH',
     value: function centerH(obj) {
       obj.x = _main.game.config.width / 2;
     }
   }, {
-    key: "centerV",
+    key: 'centerV',
     value: function centerV(obj) {
       obj.y = _main.game.config.height / 2;
     }
@@ -295,7 +296,7 @@ var AlignGrid = exports.AlignGrid = function () {
   }
 
   _createClass(AlignGrid, [{
-    key: "show",
+    key: 'show',
     value: function show() {
       var i = 0;
       this.graphics = this.scene.add.graphics();
@@ -312,7 +313,7 @@ var AlignGrid = exports.AlignGrid = function () {
       this.graphics.strokePath();
     }
   }, {
-    key: "placeAt",
+    key: 'placeAt',
     value: function placeAt(xx, yy, obj) {
       // calc position based upon the cellwidth and cellheight
       var x2 = this.cw * xx + this.cw / 2;
@@ -322,20 +323,20 @@ var AlignGrid = exports.AlignGrid = function () {
       obj.y = y2;
     }
   }, {
-    key: "placeAtIndex",
+    key: 'placeAtIndex',
     value: function placeAtIndex(index, obj) {
       var yy = Math.floor(index / this.config.cols);
       var xx = index - yy * this.config.cols;
       this.placeAt(xx, yy, obj);
     }
   }, {
-    key: "showNumbers",
+    key: 'showNumbers',
     value: function showNumbers() {
       this.show();
       var count = 0;
       for (var i = 0; i < this.config.rows; i += 1) {
         for (var j = 0; j < this.config.cols; j += 1) {
-          var numText = this.scene.add.text(0, 0, count, { color: "#ff0000" });
+          var numText = this.scene.add.text(0, 0, count, { color: '#ff0000' });
           numText.setOrigin(0.5, 0.5);
           this.placeAtIndex(count, numText);
           count += 1;
@@ -408,27 +409,27 @@ var FlatButton = function (_Phaser$GameObjects$C) {
 
     if (config.event) {
       _this.back.setInteractive();
-      _this.back.on("pointerdown", _this.pressed, _this);
+      _this.back.on('pointerdown', _this.pressed, _this);
     }
     if (_main.model.isMobile === -1) {
-      _this.back.on("pointerover", _this.over, _this);
-      _this.back.on("pointerout", _this.out, _this);
+      _this.back.on('pointerover', _this.over, _this);
+      _this.back.on('pointerout', _this.out, _this);
     }
     return _this;
   }
 
   _createClass(FlatButton, [{
-    key: "over",
+    key: 'over',
     value: function over() {
       this.y -= 5;
     }
   }, {
-    key: "out",
+    key: 'out',
     value: function out() {
       this.y += 5;
     }
   }, {
-    key: "pressed",
+    key: 'pressed',
     value: function pressed() {
       if (this.config.params) {
         _main.emitter.emit(this.config.event, this.config.params);
@@ -482,16 +483,16 @@ var SceneTitle = function (_Phaser$Scene) {
   function SceneTitle() {
     _classCallCheck(this, SceneTitle);
 
-    return _possibleConstructorReturn(this, (SceneTitle.__proto__ || Object.getPrototypeOf(SceneTitle)).call(this, "SceneTitle"));
+    return _possibleConstructorReturn(this, (SceneTitle.__proto__ || Object.getPrototypeOf(SceneTitle)).call(this, 'SceneTitle'));
   }
 
   _createClass(SceneTitle, [{
-    key: "preload",
+    key: 'preload',
     value: function preload() {
-      this.load.image("button1", "assets/ui/buttons/2/1.png");
+      this.load.image('button1', 'assets/ui/buttons/2/1.png');
     }
   }, {
-    key: "create",
+    key: 'create',
     value: function create() {
       var controller = new _controller2.default();
 
@@ -499,19 +500,19 @@ var SceneTitle = function (_Phaser$Scene) {
 
       var btnStart = new _flatButton2.default({
         scene: this,
-        key: "button1",
-        text: "start",
-        event: "start_game"
+        key: 'button1',
+        text: 'start',
+        event: 'start_game'
       });
       this.alignGrid.placeAtIndex(60, btnStart);
 
-      _main.emitter.on("start_game", this.startGame, this);
+      _main.emitter.on('start_game', this.startGame, this);
       // this.scene.start("SceneMain");
     }
   }, {
-    key: "startGame",
+    key: 'startGame',
     value: function startGame() {
-      this.scene.start("SceneMain");
+      this.scene.start('SceneMain');
     }
   }]);
 
@@ -555,43 +556,41 @@ var SceneMain = function (_Phaser$Scene) {
   function SceneMain() {
     _classCallCheck(this, SceneMain);
 
-    return _possibleConstructorReturn(this, (SceneMain.__proto__ || Object.getPrototypeOf(SceneMain)).call(this, "SceneMain"));
+    return _possibleConstructorReturn(this, (SceneMain.__proto__ || Object.getPrototypeOf(SceneMain)).call(this, 'SceneMain'));
   }
 
   _createClass(SceneMain, [{
-    key: "preload",
+    key: 'preload',
     value: function preload() {
       // load our images or sounds
-      this.load.image("button1", "assets/ui/buttons/2/1.png");
-      this.load.image("button2", "assets/ui/buttons/2/5.png");
+      this.load.image('button1', 'assets/ui/buttons/2/1.png');
+      this.load.image('button2', 'assets/ui/buttons/2/5.png');
 
-      this.load.image("toggleBack", "assets/ui/toggles/1.png");
-      this.load.image("sfxOff", "assets/ui/icons/sfx_off.png");
-      this.load.image("sfxOn", "assets/ui/icons/sfx_on.png");
+      this.load.image('toggleBack', 'assets/ui/toggles/1.png');
+      this.load.image('sfxOff', 'assets/ui/icons/sfx_off.png');
+      this.load.image('sfxOn', 'assets/ui/icons/sfx_on.png');
 
-      this.load.image("ship", "assets/player.png");
-      this.load.image("eship", "assets/eship.png");
-      this.load.image("bullet", "assets/bullet.png");
-      this.load.image("ebullet", "assets/ebullet.png");
-      this.load.image("background", "assets/background.jpg");
+      this.load.image('ship', 'assets/player.png');
+      this.load.image('eship', 'assets/eship.png');
+      this.load.image('bullet', 'assets/bullet.png');
+      this.load.image('ebullet', 'assets/ebullet.png');
+      this.load.image('background', 'assets/background.jpg');
 
-      this.load.spritesheet("rocks", "assets/rocks.png", {
+      this.load.spritesheet('rocks', 'assets/rocks.png', {
         frameWidth: 125,
         frameHeight: 100
       });
-      this.load.spritesheet("exp", "assets/exp.png", {
+      this.load.spritesheet('exp', 'assets/exp.png', {
         frameWidth: 64,
         frameHeight: 64
       });
     }
   }, {
-    key: "create",
+    key: 'create',
     value: function create() {
       // define our objects
       // set up
       var controller = new _controller2.default();
-
-      console.log(_main.align);
 
       this.shields = 50;
       this.eshields = 50;
@@ -602,9 +601,9 @@ var SceneMain = function (_Phaser$Scene) {
       //
       //
       //
-      this.background = this.add.image(0, 0, "background");
+      this.background = this.add.image(0, 0, 'background');
       this.background.setOrigin(0, 0);
-      this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
+      this.ship = this.physics.add.sprite(this.centerX, this.centerY, 'ship');
       this.ship.body.collideWorldBounds = true;
       _main.align.scaleToGameW(this.ship, 0.125);
       this.background.scaleX = this.ship.scaleX;
@@ -613,14 +612,14 @@ var SceneMain = function (_Phaser$Scene) {
       //
       //
       this.background.setInteractive();
-      this.background.on("pointerup", this.backgroundClicked, this);
-      this.background.on("pointerdown", this.onDown, this);
+      this.background.on('pointerup', this.backgroundClicked, this);
+      this.background.on('pointerdown', this.onDown, this);
       //
       //
       //
       this.physics.world.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
 
-      this.background.on("pointerdown", this.backgroundClicked, this);
+      this.background.on('pointerdown', this.backgroundClicked, this);
       this.cameras.main.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
       this.cameras.main.startFollow(this.ship, true);
       this.bulletGroup = this.physics.add.group();
@@ -630,9 +629,9 @@ var SceneMain = function (_Phaser$Scene) {
       //
       //
       //
-      var frameNames = this.anims.generateFrameNumbers("exp");
+      var frameNames = this.anims.generateFrameNumbers('exp');
       this.anims.create({
-        key: "boom",
+        key: 'boom',
         frames: frameNames,
         frameRate: 16,
         repeat: false
@@ -644,14 +643,14 @@ var SceneMain = function (_Phaser$Scene) {
       // );
       // this.explosion.play("boom");
 
-      this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
+      this.eship = this.physics.add.sprite(this.centerX, 0, 'eship');
       this.eship.body.collideWorldBounds = true;
       _main.align.scaleToGameW(this.eship, 0.25);
       this.makeInfo();
       this.setColiders();
     }
   }, {
-    key: "setColiders",
+    key: 'setColiders',
     value: function setColiders() {
       this.physics.add.collider(this.rockGroup);
       this.physics.add.collider(this.bulletGroup, this.rockGroup, this.destroyRock, null, this);
@@ -662,13 +661,13 @@ var SceneMain = function (_Phaser$Scene) {
       this.physics.add.collider(this.rockGroup, this.eship, this.rockHitEnemy, null, this);
     }
   }, {
-    key: "makeRocks",
+    key: 'makeRocks',
     value: function makeRocks() {
       var _this2 = this;
 
       if (this.rockGroup.getChildren().length === 0) {
         this.rockGroup = this.physics.add.group({
-          key: "rocks",
+          key: 'rocks',
           frame: [0, 1, 2],
           frameQuantity: 1,
           bounceX: 1,
@@ -699,17 +698,17 @@ var SceneMain = function (_Phaser$Scene) {
       }
     }
   }, {
-    key: "makeInfo",
+    key: 'makeInfo',
     value: function makeInfo() {
-      this.text1 = this.add.text(0, 0, "Shields\n50", {
+      this.text1 = this.add.text(0, 0, 'Shields\n50', {
         fontSize: _main.game.config.width / 30,
-        align: "center",
-        backgroundColor: "#000000"
+        align: 'center',
+        backgroundColor: '#000000'
       });
-      this.text2 = this.add.text(0, 0, "Enemy Shields\n50", {
+      this.text2 = this.add.text(0, 0, 'Enemy Shields\n50', {
         fontSize: _main.game.config.width / 30,
-        align: "center",
-        backgroundColor: "#000000"
+        align: 'center',
+        backgroundColor: '#000000'
       });
 
       this.text1.setOrigin(0.5, 0.5);
@@ -724,59 +723,58 @@ var SceneMain = function (_Phaser$Scene) {
       this.text2.setScrollFactor(0);
     }
   }, {
-    key: "downPlayer",
+    key: 'downPlayer',
     value: function downPlayer() {
       this.shields -= 1;
-      this.text1.setText("Shields\n" + this.shields);
+      this.text1.setText('Shields\n' + this.shields);
       if (this.shields <= 0) {
-        console.log("hola");
         _main.model.playerWon = false;
-        this.scene.start("SceneOver");
+        this.scene.start('SceneOver');
       } else {
-        console.log("adios");
+        var a = void 0;
       }
     }
   }, {
-    key: "downEnemy",
+    key: 'downEnemy',
     value: function downEnemy() {
       this.eshields -= 1;
-      this.text2.setText("Enemy Shields\n" + this.eshields);
+      this.text2.setText('Enemy Shields\n' + this.eshields);
       if (this.eshields <= 0) {
         _main.model.playerWon = true;
-        this.scene.start("SceneOver");
+        this.scene.start('SceneOver');
       }
     }
   }, {
-    key: "rockHitPlayer",
+    key: 'rockHitPlayer',
     value: function rockHitPlayer(ship, rock) {
-      var explosion = this.add.sprite(rock.x, rock.y, "exp");
-      explosion.play("boom");
+      var explosion = this.add.sprite(rock.x, rock.y, 'exp');
+      explosion.play('boom');
       rock.destroy();
       this.makeRocks();
       this.downPlayer();
     }
   }, {
-    key: "rockHitEnemy",
+    key: 'rockHitEnemy',
     value: function rockHitEnemy(ship, rock) {
-      var explosion = this.add.sprite(rock.x, rock.y, "exp");
-      explosion.play("boom");
+      var explosion = this.add.sprite(rock.x, rock.y, 'exp');
+      explosion.play('boom');
       rock.destroy();
       this.makeRocks();
       this.downEnemy();
     }
   }, {
-    key: "damagePlayer",
+    key: 'damagePlayer',
     value: function damagePlayer(ship, ebullet) {
-      var explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
-      explosion.play("boom");
+      var explosion = this.add.sprite(this.ship.x, this.ship.y, 'exp');
+      explosion.play('boom');
       ebullet.destroy();
       this.downPlayer();
     }
   }, {
-    key: "damageEnemy",
+    key: 'damageEnemy',
     value: function damageEnemy(ship, bullet) {
-      var explosion = this.add.sprite(bullet.x, bullet.y, "exp");
-      explosion.play("boom");
+      var explosion = this.add.sprite(bullet.x, bullet.y, 'exp');
+      explosion.play('boom');
       bullet.destroy();
       var angle2 = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
       angle2 = this.toDegrees(angle2);
@@ -784,28 +782,28 @@ var SceneMain = function (_Phaser$Scene) {
       this.downEnemy();
     }
   }, {
-    key: "destroyRock",
+    key: 'destroyRock',
     value: function destroyRock(bullet, rock) {
       bullet.destroy();
-      var explosion = this.add.sprite(rock.x, rock.y, "exp");
-      explosion.play("boom");
+      var explosion = this.add.sprite(rock.x, rock.y, 'exp');
+      explosion.play('boom');
       rock.destroy();
       this.makeRocks();
     }
   }, {
-    key: "getTimer",
+    key: 'getTimer',
     value: function getTimer() {
       var d = new Date();
       this.d;
       return d.getTime();
     }
   }, {
-    key: "onDown",
+    key: 'onDown',
     value: function onDown() {
       this.downTime = this.getTimer();
     }
   }, {
-    key: "backgroundClicked",
+    key: 'backgroundClicked',
     value: function backgroundClicked() {
       var elapsed = Math.abs(this.downTime - this.getTimer());
       if (elapsed < 300) {
@@ -832,30 +830,30 @@ var SceneMain = function (_Phaser$Scene) {
       }
     }
   }, {
-    key: "makeBullet",
+    key: 'makeBullet',
     value: function makeBullet() {
       var dirObj = this.getDirFromAngle(this.ship.angle);
-      var bullet = this.physics.add.sprite(this.ship.x + dirObj.tx * 30, this.ship.y + dirObj.ty * 30, "bullet");
+      var bullet = this.physics.add.sprite(this.ship.x + dirObj.tx * 30, this.ship.y + dirObj.ty * 30, 'bullet');
       this.bulletGroup.add(bullet);
       bullet.angle = this.ship.angle;
       bullet.body.setVelocity(dirObj.tx * 200, dirObj.ty * 200);
     }
   }, {
-    key: "fireEBullet",
+    key: 'fireEBullet',
     value: function fireEBullet() {
       var elapsed = Math.abs(this.lastEBullet - this.getTimer());
       if (elapsed < 500) {
         return;
       }
       this.lastEBullet = this.getTimer();
-      var ebullet = this.physics.add.sprite(this.eship.x, this.eship.y, "ebullet");
+      var ebullet = this.physics.add.sprite(this.eship.x, this.eship.y, 'ebullet');
       this.ebulletGroup.add(ebullet);
 
       ebullet.body.angularVelocity = 10;
       this.physics.moveTo(ebullet, this.ship.x, this.ship.y, 100);
     }
   }, {
-    key: "getDirFromAngle",
+    key: 'getDirFromAngle',
     value: function getDirFromAngle(angle) {
       var rads = angle * Math.PI / 180;
       var tx = Math.cos(rads);
@@ -864,20 +862,20 @@ var SceneMain = function (_Phaser$Scene) {
       return { tx: tx, ty: ty };
     }
   }, {
-    key: "toDegrees",
+    key: 'toDegrees',
     value: function toDegrees(angle) {
       this;
       return angle * (180 / Math.PI);
     }
   }, {
-    key: "thisFunction",
+    key: 'thisFunction',
     value: function thisFunction() {
       var a = 10;
       this.a;
       return a;
     }
   }, {
-    key: "update",
+    key: 'update',
     value: function update() {
       if (this.ship && this.eship) {
         var distX = Math.abs(this.ship.x - this.tx);
@@ -939,34 +937,34 @@ var SceneOver = function (_Phaser$Scene) {
   function SceneOver() {
     _classCallCheck(this, SceneOver);
 
-    return _possibleConstructorReturn(this, (SceneOver.__proto__ || Object.getPrototypeOf(SceneOver)).call(this, "SceneOver"));
+    return _possibleConstructorReturn(this, (SceneOver.__proto__ || Object.getPrototypeOf(SceneOver)).call(this, 'SceneOver'));
   }
 
   _createClass(SceneOver, [{
-    key: "preload",
+    key: 'preload',
     value: function preload() {
-      this.load.image("title", "assets/title.png");
-      this.load.image("button1", "assets/ui/buttons/2/1.png");
+      this.load.image('title', 'assets/title.png');
+      this.load.image('button1', 'assets/ui/buttons/2/1.png');
     }
   }, {
-    key: "create",
+    key: 'create',
     value: function create() {
       this.alignGrid = new _align.AlignGrid({ rows: 11, cols: 11, scene: this });
 
-      var title = this.add.image(0, 0, "title");
+      var title = this.add.image(0, 0, 'title');
       _main.align.scaleToGameW(title, 0.8);
       this.alignGrid.placeAtIndex(16, title);
 
-      this.winnerText = this.add.text(0, 0, "WINNER", {
+      this.winnerText = this.add.text(0, 0, 'WINNER', {
         fontSize: _main.game.config.width / 10,
-        color: "green"
+        color: 'green'
       });
       this.alignGrid.placeAtIndex(36, this.winnerText);
 
       if (_main.model.playerWon === true) {
-        this.winner = this.add.image(0, 0, "ship");
+        this.winner = this.add.image(0, 0, 'ship');
       } else {
-        this.winner = this.add.image(0, 0, "eship");
+        this.winner = this.add.image(0, 0, 'eship');
       }
       _main.align.scaleToGameW(this.winner, 0.25);
       this.winner.angle = 270;
@@ -1012,13 +1010,13 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 var Constants = function Constants() {
   _classCallCheck(this, Constants);
 
-  this.SET_SCORE = "setScore";
-  this.UP_POINTS = "upPoints";
-  this.SCORE_UPDATED = "setScoreUpdated";
-  this.PLAY_SOUND = "playSound";
-  this.MUSIC_CHANGED = "musicChanged";
-  this.TOGGLE_SOUND = "toggleSound";
-  this.TOGGLE_MUSIC = "toggleMusic";
+  this.SET_SCORE = 'setScore';
+  this.UP_POINTS = 'upPoints';
+  this.SCORE_UPDATED = 'setScoreUpdated';
+  this.PLAY_SOUND = 'playSound';
+  this.MUSIC_CHANGED = 'musicChanged';
+  this.TOGGLE_SOUND = 'toggleSound';
+  this.TOGGLE_MUSIC = 'toggleMusic';
 };
 
 exports.default = Constants;
