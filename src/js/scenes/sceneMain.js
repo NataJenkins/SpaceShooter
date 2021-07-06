@@ -1,6 +1,7 @@
 import Controller from "../classes/mc/controller.js";
 import { model, game, align } from "../main.js";
 import { AlignGrid } from "../classes/utils/align.js";
+import Phaser from "phaser";
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {

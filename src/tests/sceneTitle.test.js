@@ -1,4 +1,4 @@
-import SceneOver from "../js/scenes/sceneOver.js";
+import SceneTitle from "../js/scenes/sceneTitle.js";
 import "jest-canvas-mock";
 import "phaser";
 
@@ -7,11 +7,11 @@ it("works", () => {
 });
 
 test("SceneMain is a subclass of container", () => {
-  expect(SceneOver.prototype instanceof Phaser.Scene).toBe(true);
+  expect(SceneTitle.prototype instanceof Phaser.Scene).toBe(true);
 });
 
 test("BaseScene is not a subclass of container", () => {
-  expect(SceneOver.prototype instanceof Phaser.GameObjects.Container).toBe(
+  expect(SceneTitle.prototype instanceof Phaser.GameObjects.Container).toBe(
     false
   );
 });
