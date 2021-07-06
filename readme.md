@@ -6,8 +6,6 @@
 
 ![screenshot](./Screenshot_4.jpg)
 
-![screenshot]()
-
 ## Built With
 
 - Phaser
