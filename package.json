@@ -7,10 +7,12 @@
     "babel-loader": "^7.0.0",
     "babel-preset-env": "^1.7.0",
     "jest": "^27.0.6",
+    "jest-canvas-mock": "^2.3.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.0.0"
   },
   "dependencies": {
+    "canvas": "^2.8.0",
     "phaser": "^3.55.2"
   },
   "name": "spaceshooter",

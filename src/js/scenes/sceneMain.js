@@ -1,32 +1,32 @@
-import Controller from '../classes/mc/controller.js';
-import { model, game, align } from '../main.js';
-import { AlignGrid } from '../classes/utils/align.js';
+import Controller from "../classes/mc/controller.js";
+import { model, game, align } from "../main.js";
+import { AlignGrid } from "../classes/utils/align.js";
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {
-    super('SceneMain');
+    super("SceneMain");
   }
 
   preload() {
     // load our images or sounds
-    this.load.image('button1', 'assets/ui/buttons/2/1.png');
-    this.load.image('button2', 'assets/ui/buttons/2/5.png');
+    this.load.image("button1", "assets/ui/buttons/2/1.png");
+    this.load.image("button2", "assets/ui/buttons/2/5.png");
 
-    this.load.image('toggleBack', 'assets/ui/toggles/1.png');
-    this.load.image('sfxOff', 'assets/ui/icons/sfx_off.png');
-    this.load.image('sfxOn', 'assets/ui/icons/sfx_on.png');
+    this.load.image("toggleBack", "assets/ui/toggles/1.png");
+    this.load.image("sfxOff", "assets/ui/icons/sfx_off.png");
+    this.load.image("sfxOn", "assets/ui/icons/sfx_on.png");
 
-    this.load.image('ship', 'assets/player.png');
-    this.load.image('eship', 'assets/eship.png');
-    this.load.image('bullet', 'assets/bullet.png');
-    this.load.image('ebullet', 'assets/ebullet.png');
-    this.load.image('background', 'assets/background.jpg');
+    this.load.image("ship", "assets/player.png");
+    this.load.image("eship", "assets/eship.png");
+    this.load.image("bullet", "assets/bullet.png");
+    this.load.image("ebullet", "assets/ebullet.png");
+    this.load.image("background", "assets/background.jpg");
 
-    this.load.spritesheet('rocks', 'assets/rocks.png', {
+    this.load.spritesheet("rocks", "assets/rocks.png", {
       frameWidth: 125,
       frameHeight: 100,
     });
-    this.load.spritesheet('exp', 'assets/exp.png', {
+    this.load.spritesheet("exp", "assets/exp.png", {
       frameWidth: 64,
       frameHeight: 64,
     });
@@ -46,9 +46,9 @@ export default class SceneMain extends Phaser.Scene {
     //
     //
     //
-    this.background = this.add.image(0, 0, 'background');
+    this.background = this.add.image(0, 0, "background");
     this.background.setOrigin(0, 0);
-    this.ship = this.physics.add.sprite(this.centerX, this.centerY, 'ship');
+    this.ship = this.physics.add.sprite(this.centerX, this.centerY, "ship");
     this.ship.body.collideWorldBounds = true;
     align.scaleToGameW(this.ship, 0.125);
     this.background.scaleX = this.ship.scaleX;
@@ -57,8 +57,8 @@ export default class SceneMain extends Phaser.Scene {
     //
     //
     this.background.setInteractive();
-    this.background.on('pointerup', this.backgroundClicked, this);
-    this.background.on('pointerdown', this.onDown, this);
+    this.background.on("pointerup", this.backgroundClicked, this);
+    this.background.on("pointerdown", this.onDown, this);
     //
     //
     //
@@ -66,15 +66,15 @@ export default class SceneMain extends Phaser.Scene {
       0,
       0,
       this.background.displayWidth,
-      this.background.displayHeight,
+      this.background.displayHeight
     );
 
-    this.background.on('pointerdown', this.backgroundClicked, this);
+    this.background.on("pointerdown", this.backgroundClicked, this);
     this.cameras.main.setBounds(
       0,
       0,
       this.background.displayWidth,
-      this.background.displayHeight,
+      this.background.displayHeight
     );
     this.cameras.main.startFollow(this.ship, true);
     this.bulletGroup = this.physics.add.group();
@@ -84,9 +84,9 @@ export default class SceneMain extends Phaser.Scene {
     //
     //
     //
-    const frameNames = this.anims.generateFrameNumbers('exp');
+    const frameNames = this.anims.generateFrameNumbers("exp");
     this.anims.create({
-      key: 'boom',
+      key: "boom",
       frames: frameNames,
       frameRate: 16,
       repeat: false,
@@ -98,7 +98,7 @@ export default class SceneMain extends Phaser.Scene {
     // );
     // this.explosion.play("boom");
 
-    this.eship = this.physics.add.sprite(this.centerX, 0, 'eship');
+    this.eship = this.physics.add.sprite(this.centerX, 0, "eship");
     this.eship.body.collideWorldBounds = true;
     align.scaleToGameW(this.eship, 0.25);
     this.makeInfo();
@@ -112,49 +112,49 @@ export default class SceneMain extends Phaser.Scene {
       this.rockGroup,
       this.destroyRock,
       null,
-      this,
+      this
     );
     this.physics.add.collider(
       this.ebulletGroup,
       this.rockGroup,
       this.destroyRock,
       null,
-      this,
+      this
     );
     this.physics.add.collider(
       this.bulletGroup,
       this.eship,
       this.damageEnemy,
       null,
-      this,
+      this
     );
     this.physics.add.collider(
       this.ebulletGroup,
       this.ship,
       this.damagePlayer,
       null,
-      this,
+      this
     );
     this.physics.add.collider(
       this.rockGroup,
       this.ship,
       this.rockHitPlayer,
       null,
-      this,
+      this
     );
     this.physics.add.collider(
       this.rockGroup,
       this.eship,
       this.rockHitEnemy,
       null,
-      this,
+      this
     );
   }
 
   makeRocks() {
     if (this.rockGroup.getChildren().length === 0) {
       this.rockGroup = this.physics.add.group({
-        key: 'rocks',
+        key: "rocks",
         frame: [0, 1, 2],
         frameQuantity: 1,
         bounceX: 1,
@@ -186,15 +186,15 @@ export default class SceneMain extends Phaser.Scene {
   }
 
   makeInfo() {
-    this.text1 = this.add.text(0, 0, 'Shields\n50', {
+    this.text1 = this.add.text(0, 0, "Shields\n50", {
       fontSize: game.config.width / 30,
-      align: 'center',
-      backgroundColor: '#000000',
+      align: "center",
+      backgroundColor: "#000000",
     });
-    this.text2 = this.add.text(0, 0, 'Enemy Shields\n50', {
+    this.text2 = this.add.text(0, 0, "Enemy Shields\n50", {
       fontSize: game.config.width / 30,
-      align: 'center',
-      backgroundColor: '#000000',
+      align: "center",
+      backgroundColor: "#000000",
     });
 
     this.text1.setOrigin(0.5, 0.5);
@@ -214,7 +214,7 @@ export default class SceneMain extends Phaser.Scene {
     this.text1.setText(`Shields\n${this.shields}`);
     if (this.shields <= 0) {
       model.playerWon = false;
-      this.scene.start('SceneOver');
+      this.scene.start("SceneOver");
     } else {
       let a;
     }
@@ -225,36 +225,36 @@ export default class SceneMain extends Phaser.Scene {
     this.text2.setText(`Enemy Shields\n${this.eshields}`);
     if (this.eshields <= 0) {
       model.playerWon = true;
-      this.scene.start('SceneOver');
+      this.scene.start("SceneOver");
     }
   }
 
   rockHitPlayer(ship, rock) {
-    const explosion = this.add.sprite(rock.x, rock.y, 'exp');
-    explosion.play('boom');
+    const explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
     rock.destroy();
     this.makeRocks();
     this.downPlayer();
   }
 
   rockHitEnemy(ship, rock) {
-    const explosion = this.add.sprite(rock.x, rock.y, 'exp');
-    explosion.play('boom');
+    const explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
     rock.destroy();
     this.makeRocks();
     this.downEnemy();
   }
 
   damagePlayer(ship, ebullet) {
-    const explosion = this.add.sprite(this.ship.x, this.ship.y, 'exp');
-    explosion.play('boom');
+    const explosion = this.add.sprite(this.ship.x, this.ship.y, "exp");
+    explosion.play("boom");
     ebullet.destroy();
     this.downPlayer();
   }
 
   damageEnemy(ship, bullet) {
-    const explosion = this.add.sprite(bullet.x, bullet.y, 'exp');
-    explosion.play('boom');
+    const explosion = this.add.sprite(bullet.x, bullet.y, "exp");
+    explosion.play("boom");
     bullet.destroy();
     let angle2 = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 100);
     angle2 = this.toDegrees(angle2);
@@ -264,8 +264,8 @@ export default class SceneMain extends Phaser.Scene {
 
   destroyRock(bullet, rock) {
     bullet.destroy();
-    const explosion = this.add.sprite(rock.x, rock.y, 'exp');
-    explosion.play('boom');
+    const explosion = this.add.sprite(rock.x, rock.y, "exp");
+    explosion.play("boom");
     rock.destroy();
     this.makeRocks();
   }
@@ -301,7 +301,7 @@ export default class SceneMain extends Phaser.Scene {
           this.eship,
           this.ship.x,
           this.ship.y,
-          60,
+          60
         );
         angle2 = this.toDegrees(angle2);
         this.eship.angle = angle2;
@@ -316,7 +316,7 @@ export default class SceneMain extends Phaser.Scene {
     const bullet = this.physics.add.sprite(
       this.ship.x + dirObj.tx * 30,
       this.ship.y + dirObj.ty * 30,
-      'bullet',
+      "bullet"
     );
     this.bulletGroup.add(bullet);
     bullet.angle = this.ship.angle;
@@ -332,7 +332,7 @@ export default class SceneMain extends Phaser.Scene {
     const ebullet = this.physics.add.sprite(
       this.eship.x,
       this.eship.y,
-      'ebullet',
+      "ebullet"
     );
     this.ebulletGroup.add(ebullet);
 
