@@ -36,18 +36,18 @@ export default class SceneOver extends Phaser.Scene {
     this.winner.angle = 270;
     this.alignGrid.placeAtIndex(60, this.winner);
 
-    // const btnStart = new FlatButton({
-    //   scene: this,
-    //   key: "button1",
-    //   text: "Play Again!",
-    //   event: "start_game",
-    // });
-    // this.alignGrid.placeAtIndex(93, btnStart);
+    const btnStart = new FlatButton({
+      scene: this,
+      key: 'button1',
+      text: 'Play Again!',
+      event: 'start_game',
+    });
+    this.alignGrid.placeAtIndex(93, btnStart);
 
-    // emitter.on("start_game", this.startGame, this);
+    emitter.on('start_game', this.startGame, this);
   }
 
-  // startGame() {
-  //   this.scene.start("SceneMain");
-  // }
+  startGame() {
+    this.scene.start('SceneMain');
+  }
 }
