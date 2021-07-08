@@ -1,4 +1,4 @@
-import SceneTitle from './scenes/sceneTitle.js';
+import { SceneTitle } from './scenes/sceneTitle.js';
 import SceneMain from './scenes/sceneMain.js';
 import SceneOver from './scenes/sceneOver.js';
 import Constants from './constants.js';

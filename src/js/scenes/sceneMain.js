@@ -3,6 +3,7 @@ import Controller from '../classes/mc/controller.js';
 import { model, game, align } from '../main.js';
 import { AlignGrid } from '../classes/utils/align.js';
 import { postScores } from '../../../api/leaderboard.js';
+import { username } from './sceneTitle.js';
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {
@@ -39,7 +40,7 @@ export default class SceneMain extends Phaser.Scene {
     // set up
     const controller = new Controller();
 
-    this.shields = 70;
+    this.shields = 100;
     this.eshields = 50;
     model.playerWon === true;
 
@@ -190,10 +191,10 @@ export default class SceneMain extends Phaser.Scene {
     this.eshields -= 1;
     this.text2.setText(`Enemy Shields\n${this.eshields}`);
     if (this.eshields <= 0) {
-      console.log(this.getDateAsString());
+      console.log(username);
       model.playerWon = true;
       this.scene.start('SceneOver');
-      postScores(this.getDateAsString(), this.shields * 5)
+      postScores(username, this.shields * 5)
         .then((res) => {
           console.log(res);
         })

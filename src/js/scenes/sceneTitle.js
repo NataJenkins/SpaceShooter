@@ -3,6 +3,7 @@ import Controller from '../classes/mc/controller.js';
 import { AlignGrid } from '../classes/utils/align.js';
 import { emitter } from '../main.js';
 
+let username;
 class SceneTitle extends Phaser.Scene {
   constructor() {
     super('SceneTitle');
@@ -30,8 +31,16 @@ class SceneTitle extends Phaser.Scene {
   }
 
   startGame() {
+    const userInput = document.getElementById('username');
+    if (document.getElementById('username').value) {
+      username = document.getElementById('username').value;
+    } else {
+      username = 'player';
+    }
+    userInput.setAttribute('class', 'd-none');
+    console.log(username);
     this.scene.start('SceneMain');
   }
 }
 
-export default SceneTitle;
+export { SceneTitle, username };
