@@ -1,8 +1,9 @@
 import { AlignGrid } from '../classes/utils/align.js';
+import FlatButton from '../classes/ui/flatButton.js';
+import { getScores, postScores } from '../../../api/leaderboard.js';
 import {
   align, game, model, emitter,
 } from '../main.js';
-import FlatButton from '../classes/ui/flatButton.js';
 
 export default class SceneOver extends Phaser.Scene {
   constructor() {
@@ -15,6 +16,40 @@ export default class SceneOver extends Phaser.Scene {
   }
 
   create() {
+    getScores()
+      .then((res) => {
+        const scores = res.data.result.sort((a, b) => b.score - a.score);
+        this.user1Text = this.add.text(0, 0, `${scores[0].user} - ${scores[0].score}`, {
+          fontSize: 15,
+          color: 'green',
+        });
+        this.alignGrid.placeAtIndex(33, this.user1Text);
+
+        this.user2Text = this.add.text(0, 0, `${scores[1].user} - ${scores[1].score}`, {
+          fontSize: 15,
+          color: 'green',
+        });
+        this.alignGrid.placeAtIndex(44, this.user2Text);
+
+        this.user3Text = this.add.text(0, 0, `${scores[2].user} - ${scores[2].score}`, {
+          fontSize: 15,
+          color: 'green',
+        });
+        this.alignGrid.placeAtIndex(55, this.user3Text);
+
+        console.log(scores);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // postScores("user1", 10)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
     this.alignGrid = new AlignGrid({ rows: 11, cols: 11, scene: this });
 
     const title = this.add.image(0, 0, 'title');
@@ -25,7 +60,7 @@ export default class SceneOver extends Phaser.Scene {
       fontSize: game.config.width / 10,
       color: 'green',
     });
-    this.alignGrid.placeAtIndex(36, this.winnerText);
+    this.alignGrid.placeAtIndex(39, this.winnerText);
 
     if (model.playerWon === true) {
       this.winner = this.add.image(0, 0, 'ship');
@@ -34,7 +69,7 @@ export default class SceneOver extends Phaser.Scene {
     }
     align.scaleToGameW(this.winner, 0.25);
     this.winner.angle = 270;
-    this.alignGrid.placeAtIndex(60, this.winner);
+    this.alignGrid.placeAtIndex(63, this.winner);
 
     const btnStart = new FlatButton({
       scene: this,

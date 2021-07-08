@@ -22,7 +22,8 @@
     "import/no-cycle": "off",
     "import/extensions": "off",
     "import/no-mutable-exports": "off",
-    "max-classes-per-file": "off"
+    "max-classes-per-file": "off",
+    "linebreak-style": "off"
   },
   "ignorePatterns": ["dist/", "build/", "phaser.min.js"]
 }

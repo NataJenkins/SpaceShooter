@@ -2,6 +2,7 @@ import Phaser from 'phaser';
 import Controller from '../classes/mc/controller.js';
 import { model, game, align } from '../main.js';
 import { AlignGrid } from '../classes/utils/align.js';
+import { postScores } from '../../../api/leaderboard.js';
 
 export default class SceneMain extends Phaser.Scene {
   constructor() {
@@ -38,7 +39,7 @@ export default class SceneMain extends Phaser.Scene {
     // set up
     const controller = new Controller();
 
-    this.shields = 50;
+    this.shields = 70;
     this.eshields = 50;
     model.playerWon === true;
 
@@ -63,20 +64,10 @@ export default class SceneMain extends Phaser.Scene {
     //
     //
     //
-    this.physics.world.setBounds(
-      0,
-      0,
-      this.background.displayWidth,
-      this.background.displayHeight,
-    );
+    this.physics.world.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
 
     this.background.on('pointerdown', this.backgroundClicked, this);
-    this.cameras.main.setBounds(
-      0,
-      0,
-      this.background.displayWidth,
-      this.background.displayHeight,
-    );
+    this.cameras.main.setBounds(0, 0, this.background.displayWidth, this.background.displayHeight);
     this.cameras.main.startFollow(this.ship, true);
     this.bulletGroup = this.physics.add.group();
     this.ebulletGroup = this.physics.add.group();
@@ -108,48 +99,12 @@ export default class SceneMain extends Phaser.Scene {
 
   setColiders() {
     this.physics.add.collider(this.rockGroup);
-    this.physics.add.collider(
-      this.bulletGroup,
-      this.rockGroup,
-      this.destroyRock,
-      null,
-      this,
-    );
-    this.physics.add.collider(
-      this.ebulletGroup,
-      this.rockGroup,
-      this.destroyRock,
-      null,
-      this,
-    );
-    this.physics.add.collider(
-      this.bulletGroup,
-      this.eship,
-      this.damageEnemy,
-      null,
-      this,
-    );
-    this.physics.add.collider(
-      this.ebulletGroup,
-      this.ship,
-      this.damagePlayer,
-      null,
-      this,
-    );
-    this.physics.add.collider(
-      this.rockGroup,
-      this.ship,
-      this.rockHitPlayer,
-      null,
-      this,
-    );
-    this.physics.add.collider(
-      this.rockGroup,
-      this.eship,
-      this.rockHitEnemy,
-      null,
-      this,
-    );
+    this.physics.add.collider(this.bulletGroup, this.rockGroup, this.destroyRock, null, this);
+    this.physics.add.collider(this.ebulletGroup, this.rockGroup, this.destroyRock, null, this);
+    this.physics.add.collider(this.bulletGroup, this.eship, this.damageEnemy, null, this);
+    this.physics.add.collider(this.ebulletGroup, this.ship, this.damagePlayer, null, this);
+    this.physics.add.collider(this.rockGroup, this.ship, this.rockHitPlayer, null, this);
+    this.physics.add.collider(this.rockGroup, this.eship, this.rockHitEnemy, null, this);
   }
 
   makeRocks() {
@@ -221,12 +176,28 @@ export default class SceneMain extends Phaser.Scene {
     }
   }
 
+  getDateAsString() {
+    const today = new Date();
+    const date = `${today.getFullYear()}-${today.getMonth() + 1}-${today.getDate()}`;
+    const time = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
+    this.today;
+    this.date;
+    this.time;
+    return `${date}T${time}`;
+  }
+
   downEnemy() {
     this.eshields -= 1;
     this.text2.setText(`Enemy Shields\n${this.eshields}`);
     if (this.eshields <= 0) {
+      console.log(this.getDateAsString());
       model.playerWon = true;
       this.scene.start('SceneOver');
+      postScores(this.getDateAsString(), this.shields * 5)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {});
     }
   }
 
@@ -298,12 +269,7 @@ export default class SceneMain extends Phaser.Scene {
       const distX2 = Math.abs(this.ship.x - tx);
       const distY2 = Math.abs(this.ship.y - ty);
       if (distX2 > 30 && distY2 > 30) {
-        let angle2 = this.physics.moveTo(
-          this.eship,
-          this.ship.x,
-          this.ship.y,
-          60,
-        );
+        let angle2 = this.physics.moveTo(this.eship, this.ship.x, this.ship.y, 60);
         angle2 = this.toDegrees(angle2);
         this.eship.angle = angle2;
       }
@@ -330,11 +296,7 @@ export default class SceneMain extends Phaser.Scene {
       return;
     }
     this.lastEBullet = this.getTimer();
-    const ebullet = this.physics.add.sprite(
-      this.eship.x,
-      this.eship.y,
-      'ebullet',
-    );
+    const ebullet = this.physics.add.sprite(this.eship.x, this.eship.y, 'ebullet');
     this.ebulletGroup.add(ebullet);
 
     ebullet.body.angularVelocity = 10;
