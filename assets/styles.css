@@ -1,0 +1,13 @@
+#username{
+    position: absolute;
+    margin-top: 150px;
+    margin-left: 150px;
+    background-color: black;
+    border:none;
+    text-align: center;
+    color:white
+}
+
+.d-none{
+    display: none;
+}
