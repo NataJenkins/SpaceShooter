@@ -1,0 +1,29 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "extends": ["airbnb-base"],
+  "rules": {
+    "no-shadow": "off",
+    "no-param-reassign": "off",
+    "eol-last": "off",
+    "no-undef": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off",
+    "constructor-super": "off",
+    "no-unused-expressions": "off",
+    "import/no-cycle": "off",
+    "import/extensions": "off",
+    "import/no-mutable-exports": "off",
+    "max-classes-per-file": "off",
+    "linebreak-style": "off"
+  },
+  "ignorePatterns": ["dist/", "build/", "phaser.min.js"]
+}
